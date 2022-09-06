@@ -1,0 +1,28 @@
+.appStyle{
+    margin-top: 75px;
+    
+}
+.FormBody{
+    min-height: 625px;
+    margin-bottom: 10px;
+}
+@media screen and (max-width:500px) {
+    .FormBody{
+        min-height: 700px;
+    }
+}
+
+.formPaper{
+    display: flex;
+}
+
+.TextStyle{
+    justify-items: center;
+    margin-top: 20px;
+}
+.root {
+    display: 'flex';
+    justify-content: 'center';
+    align-items: 'center';
+}
+

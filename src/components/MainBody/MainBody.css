@@ -1,0 +1,17 @@
+div.scroll{
+    margin-top: 25px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+body{
+    background-color: rgb(219, 219, 219);
+}
+
+.appStyle{
+    margin-bottom: 20px;
+}
+
+.cardStyle{
+    align-items: center;
+    
+}

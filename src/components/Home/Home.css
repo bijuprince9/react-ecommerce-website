@@ -1,0 +1,52 @@
+.Style {
+  margin-top: 0%;
+  margin-bottom: 0%;
+  align-items: center;
+}
+
+.homeStyle {
+  /* Full height */
+  height: 100vh;
+  /* Center and scale the image nicely */
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width:auto;
+  background-image: url('../../img/bg2.jpg');
+}
+@media screen and (max-width:500px) {
+  .homeStyle{
+    background-image: none;
+  }
+}
+
+body {
+  height: 100%;
+}
+
+
+.aboutStyle{
+  margin-top: 8%;
+  display:flexbox;
+  align-items: center;
+ margin-left: 30%;
+ margin-right: 30%;
+}
+@media screen and (max-width:500px) {
+  .aboutStyle{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 0%;
+    padding-top: 10px;
+  }
+}
+
+.homeButton{
+  display: flex ;
+justify-content: center;
+
+}
+@media screen and (max-width:500px) {
+  .homeButton{
+    flex-direction: column-reverse;
+  }
+}

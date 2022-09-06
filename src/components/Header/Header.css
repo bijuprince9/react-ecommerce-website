@@ -1,0 +1,12 @@
+.headerStyle{
+    overflow: hidden;
+    margin-bottom: 20px;
+}  
+
+@media screen and (max-width: 500px) {
+  .toolStyle {
+    display:flex;
+    flex-direction: column-reverse;
+    height: 100px;
+    }
+}
