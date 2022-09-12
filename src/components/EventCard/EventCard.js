@@ -174,9 +174,6 @@ function EventCard() {
 
       ))}
 
-{!myData && myData.map((data) => (
-<div>Server under maintenance</div>
-))}
 
     </>
   );
