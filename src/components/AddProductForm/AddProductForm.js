@@ -6,12 +6,14 @@ import {
   Paper,
   IconButton,
   Typography,
+  Backdrop,
 } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import "./AddProductForm.css";
 import Navbar from "../Navbar/Navbar";
-import { postUrl } from "../../utils/url";
+import { postUrl, imgUrl } from "../../utils/url";
 import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 
 function AddProductForm() {
@@ -22,6 +24,7 @@ function AddProductForm() {
     margin: "20px auto",
     borderRadius: "10px",
   };
+  const [open, setOpen] = useState(false);
 
   const btnstyle = { margin: "8px 0" };
   const preview = { display: "flex", flexDirection: "column" };
@@ -40,7 +43,7 @@ function AddProductForm() {
   const [description, setDescription] = useState();
   const [price, setPrice] = useState();
   const navigate = useNavigate()
-  
+
 
   // This function will be triggered when the file field change
   const imageChange = (e) => {
@@ -58,20 +61,42 @@ function AddProductForm() {
 
 
   function handleClick(e) {
+    setOpen(!open)
     e.preventDefault();
     // Send data to the backend via POST
     // console.log(formData)
-    
-    axios.post(postUrl,{
-      'name':name,
-      'description':description,
-      'price':price
-    }).then(({data}) =>{
-      
-        alert("Data added successfully");
-        navigate("../Home")
-    
-    }).catch((error) => alert(error))
+
+    axios.post(postUrl, {
+      'name': name,
+      'description': description,
+      'price': price
+    }).then(({ data }) => {
+
+      // alert("Data added successfully");
+      // navigate("../Home")
+
+      const imageForm = new FormData()
+      imageForm.set('image', selectedImage, data._id + '.jpg')
+
+      const config = {
+        headers: { 'content-type': 'multipart/form-data' }
+      }
+
+      axios.post(imgUrl, imageForm, config) // receive two parameter endpoint url ,form data         
+        .then(res => { // then print response status
+          alert("Data added successfully");
+          navigate("../Home")
+        }).catch((error) => {
+          alert(error)
+          
+        })
+
+
+    }).catch((error) => {
+      alert(error)
+      navigate("../Home")
+
+    })
     // 
     // .catch((error) => {
 
@@ -83,6 +108,7 @@ function AddProductForm() {
   return (
     <div className="FormBody">
       <Navbar />
+
       <Grid container justify="center" wrap="wrap" >
         <Paper elevation={10} style={paperStyle}>
           <Typography align="center" variant="h5" sx={{ mb: 1 }}>
@@ -156,6 +182,12 @@ function AddProductForm() {
           >
             Submit
           </Button>
+          <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={open}
+            >
+            <CircularProgress  />
+          </Backdrop>
         </Paper>
       </Grid>
     </div>

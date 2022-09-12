@@ -22,6 +22,10 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import PropTypes from "prop-types";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import CircularProgress from "@mui/material/CircularProgress";
+import { Navigate } from "react-router-dom";
+
+
 
 const styles = {
   media: {
@@ -38,6 +42,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
+
+
 
 const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
@@ -69,7 +75,9 @@ BootstrapDialogTitle.propTypes = {
 };
 
 function EventCard() {
+  
   const [open, setOpen] = React.useState(false);
+  
 
   const handleClickOpen = (e) => {
     const id = e.target.value;
@@ -80,19 +88,27 @@ function EventCard() {
   };
 
   const [myData, setMyData] = useState([]);
-
+  const [load, setLoad] = React.useState(false);
   //Using prmises
 
   useEffect(() => {
-    console.log("dataaaaaa");
+   
     axios.get(dataUrl).then((res) => {
       setMyData(res.data);
+      setLoad(true)
+    }).catch((error) => {
+      setLoad(false)
+      alert("Network error")
+      Navigate("../Home")
     });
   }, []);
 
+
   return (
     <>
-      {myData && myData.map((data) => (
+
+{load? (myData.map((data) => (
+ 
         // myImage.src = URL.createObjectURL({data.img});
 
         <Card
@@ -105,7 +121,7 @@ function EventCard() {
         >
           <CardMedia
             component="img"
-            // image={imgUrl + data.img}
+            image={require('D:/Training/Node Udemy/crud-app/uploads/' + data._id+'.jpg')}
             alt="No image"
             style={styles.media}
           />
@@ -172,11 +188,15 @@ function EventCard() {
         </Card>
 
 
-      ))}
-
+      ))):(<CircularProgress />)}
+{/* {!isData && myData.map((data) => (
+  <div>Serevr Under maintenence</div>
+))} */}
 
     </>
   );
+          
+      
 }
 
 export default EventCard;
